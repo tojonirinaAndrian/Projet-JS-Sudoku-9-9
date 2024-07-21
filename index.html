@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet JS : SUDOKU 9*9</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="bloc_entier">
+
+        <div class="custom_alert" id = "custom_alert" style = "text-align : center">
+            <span class="closebtn" onclick="fermer_alert()">&times;</span>
+            <h2>Bravo !!!</h2>
+            <p id="alert_content" style = "margin : 20px 0; text-align : left; "> </p>
+            <input type="button" value="Nouvelle" id="bouton_nouveau" onclick="clearInterval(mon_temps), nouveau(), fermer_alert()" style = "margin : 20px 0 0 0;">
+        </div>
+
+        <div class="titre bloc">
+            <p>Sudoku</p>
+        </div>
+        <div class="bloc temps">
+            <span id="temps_de_la_partie">00 : 00</span>
+            <span id="pauser_la_partie" onclick="pauser()">⏸️</span>
+        </div>
+        <div class="bloc etat">
+            <span id="precedent" onclick="precedent()" style="margin : 0 5px 0 0;">&#10554;</span> 
+            <span id="suivant" onclick="suivant()" style="margin : 0 0 0 5px;">&#10555;</span>
+        </div>
+        <div class="bloc_des_cases bloc">
+
+            <ul class="ligne">
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne1 colonne1" id = "case1_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne1 colonne2" id = "case1_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne1 colonne3" id = "case1_3"></li>
+                    
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne1 colonne4" id = "case2_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne1 colonne5" id = "case2_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne1 colonne6" id = "case2_3"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne1 colonne7" id = "case3_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne1 colonne8" id = "case3_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne1 colonne9" id = "case3_3"></li>
+                </div>
+            </ul>
+            
+            <ul class="ligne">
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne2 colonne1" id = "case1_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne2 colonne2" id = "case1_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne2 colonne3" id = "case1_6"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne2 colonne4" id = "case2_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne2 colonne5" id = "case2_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne2 colonne6" id = "case2_6"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne2 colonne7" id = "case3_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne2 colonne8" id = "case3_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne2 colonne9" id = "case3_6"></li>
+                </div>
+            </ul>
+            <ul class="ligne">
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne3 colonne1" id = "case1_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne3 colonne2" id = "case1_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block1 ligne3 colonne3" id = "case1_9"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne3 colonne4" id = "case2_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne3 colonne5" id = "case2_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block2 ligne3 colonne6" id = "case2_9"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne3 colonne7" id = "case3_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne3 colonne8" id = "case3_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block3 ligne3 colonne9" id = "case3_9"></li>
+                </div>
+            </ul>
+        
+        
+            <ul class="ligne">
+                <div class="board board_2">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne4 colonne1" id = "case4_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne4 colonne2" id = "case4_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne4 colonne3" id = "case4_3"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne4 colonne4" id = "case5_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne4 colonne5" id = "case5_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne4 colonne6" id = "case5_3"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne4 colonne7" id = "case6_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne4 colonne8" id = "case6_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne4 colonne9" id = "case6_3"></li>
+                </div>
+            </ul>
+            
+            <ul class="ligne">
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne5 colonne1" id = "case4_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne5 colonne2" id = "case4_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne5 colonne3" id = "case4_6"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne5 colonne4" id = "case5_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne5 colonne5" id = "case5_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne5 colonne6" id = "case5_6"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne5 colonne7" id = "case6_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne5 colonne8" id = "case6_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne5 colonne9" id = "case6_6"></li>
+                </div>
+            </ul>
+            <ul class="ligne">
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne6 colonne1" id = "case4_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne6 colonne2" id = "case4_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block4 ligne6 colonne3" id = "case4_9"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne6 colonne4" id = "case5_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne6 colonne5" id = "case5_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block5 ligne6 colonne6" id = "case5_9"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne6 colonne7" id = "case6_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne6 colonne8" id = "case6_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block6 ligne6 colonne9" id = "case6_9"></li>
+                </div>
+            </ul>
+            <ul class="ligne">
+                <div class="board board_2">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne7 colonne1" id = "case7_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne7 colonne2" id = "case7_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne7 colonne3" id = "case7_3"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne7 colonne4" id = "case8_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne7 colonne5" id = "case8_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne7 colonne6" id = "case8_3"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne7 colonne7" id = "case9_1"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne7 colonne8" id = "case9_2"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne7 colonne9" id = "case9_3"></li>
+                </div>
+            </ul>
+            
+            <ul class="ligne">
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne8 colonne1" id = "case7_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne8 colonne2" id = "case7_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne8 colonne3" id = "case7_6"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne8 colonne4" id = "case8_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne8 colonne5" id = "case8_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne8 colonne6" id = "case8_6"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne8 colonne7" id = "case9_4"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne8 colonne8" id = "case9_5"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne8 colonne9" id = "case9_6"></li>
+                </div>
+            </ul>
+            <ul class="ligne">
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne9 colonne1" id = "case7_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne9 colonne2" id = "case7_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block7 ligne9 colonne3" id = "case7_9"></li>
+                </div>
+                
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne9 colonne4" id = "case8_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne9 colonne5" id = "case8_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block8 ligne9 colonne6" id = "case8_9"></li>
+                </div>
+                <div class="board">
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne9 colonne7" id = "case9_7"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne9 colonne8" id = "case9_8"></li>
+                    <li class="block_case"><input type="text" maxlength="1" onfocus="on_focus(this.id)" onblur="on_blur(this.id)" onclick = "initialisation_avant_input (this)" oninput="nombre(this.id)" class="case case_block9 ligne9 colonne9" id = "case9_9"></li>
+                </div>
+            </ul>
+        </div>
+
+        <div class="bloc" id="boutons_chiffres">
+        </div>
+
+        <div class="boutons bloc">
+            <input type="button" value="Resoudre" onclick="resoudre_le_sudoku ()" id="bouton_resoudre">
+            <input type="button" value="Recommencer" onclick="recommencer()" id="bouton_recommencer">
+            <input type="button" value="Nouvelle" onclick="clearInterval(mon_temps), nouveau()">
+        </div>
+    </div>
+</body>
+
+<script src="script.js"></script>
+</html>
